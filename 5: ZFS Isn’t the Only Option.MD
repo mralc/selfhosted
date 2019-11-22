@@ -1,7 +1,7 @@
 ![](https://assets.fireside.fm/file/fireside-images/podcasts/images/7/7296e34a-2697-479a-adfb-ad32329dd0b0/header.jpg)
 ## 5: ZFS Isn’t the Only Option 
 
-[Link to audio] (https://selfhosted.show/5)
+[Link to audio](https://selfhosted.show/5)
 Chris is currently hating [Shinobi](https://shinobi.video/) the open source CCTV solution running on the Raspberry Pi 4. He has bought five Wyze Cams and flashed them with [custom firmware](https://www.reddit.com/r/wyzecam/comments/7w4kx4/openipc_open_source_firmware_with_rtsp_for/) so he can stream the RTSP feed to Shinobi. Chris is currently having issues that Shinobi does not support motion detection and requires a plugin but currently is broken on ARM. With 3 ca
 
 a feeds it maxes out all the cores on the Pi 4. Chris is running his RSTP feeds via home assistant for a temporary solution.
@@ -19,16 +19,16 @@ Chris talked about buying a 4th Raspberry Pi or should he have one Raspberry Pi 
 
 Alex mentioned that you get better Plex performance by putting your Plex metadata on an SSD rather than a spinning disk to get better performance. Chris mentioned that he uses spinning disks for his work flow - he using 10k rpm disks in a RAID0. RAID0 means data in striped across disk in the array which gives an increase in performance. But if any of the disk fail in the array all data will be lost. Chris  named this volume "scary RAID"
  
-Alex mentioned a [2016 guide on buy hard drive](www.need.link). Alex also mention a hidden cost of running ZFS at home. Alex mentions that he was buying single drive either monthly or every 6 months, which does not really fit with the ZFS model where you need to work out what capacity and drives needed to run ZFS,If you need to upgrade your ZFS pool you need to buy multi disks. Since moving to America, Alex has found out about best buy and can buy 10tb WD in a case, but are easy to remove. Alex mentioned about a [mod of 3.3v rail in the sata spec](www.need.link) to reset hard drive without being present.
+Alex mentioned a [Guide on buy hard drive](https://blog.linuxserver.io/2018/10/29/new-hard-drive-rituals/). Alex also mention a hidden cost of running ZFS at home. Alex mentions that he was buying single drive either monthly or every 6 months, which does not really fit with the ZFS model where you need to work out what capacity and drives needed to run ZFS,If you need to upgrade your ZFS pool you need to buy multi disks. Since moving to America, Alex has found out about best buy and can buy 10tb WD in a case, but are easy to remove. Alex mentioned about a [mod of 3.3v rail in the sata spec](www.need.link) to reset hard drive without being present.
 
 Alex describes what mergesfs is that you can use any size of disk or any type of disk sata, usb3 and combine them with only a single mount point. mergerfs is does  pairty device it 22:40. It is a fused mount point so that all devices are found under one place. If you want parity meaning if you want to recovery from a drive failure you need to use snapraid. They Discusses [unraid](https://unraid.net/) and [open media vault](https://www.openmediavault.org/).
 
 Alex and Chris recap on what you need to think about when you are considering a storage solution, how fast the disks need to be, how much storage you need, the usage/ IO requirement, future expansion, redundancy and your budget. Chris mentioned since going audio-only his requirement has dropped dramatically.
 
-Chris compares ZFS and MergesFS.That you Can pull the disk using MergesFS from one computer to other computer and can see the data on another system as it uses normal underlaying linux file syster . Alex configures  mergerfs in one line in his FS tab file:
+Chris compares ZFS and MergesFS.That you Can pull the disk using MergesFS from one computer to other computer and can see the data on another system as it uses normal underlaying linux file syster . Alex configures  mergerfs in one line in his fstab entry:
 
 ```
-FSTAB FILe???
+/mnt/disk*:/mnt/tank/fuse /mnt/storage fuse.mergerfs defaults,allow_other,direct_io,use_ino,hard_remove,minfreespace=250G,fsname=mergerfs 0
 ```
 
 Alex mention that with snapraid the parity disk needs to be as big or larger then the biggest data drive.snapraid can support up to six parity drive. Chris is wondering if that if there is a Sata hat on the raspberry pi. Alex recommends running a small i5-i386 to do this solution. But Chris like the idea of raspberry pi as they are cheap and easily replaced and they run off DC for his RV. 
